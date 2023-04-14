@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import api from "../api"; // importando a instância do Axios de "api.js"
 import { useState } from "react";
+import ItemMusica from "../components/ItemMusica";
 
 function Musicas() {
   const [musicas, setMusicas] = useState([]); // criando estado de vetor para uma lista de músicas
@@ -21,40 +22,27 @@ function Musicas() {
 
   return (
     <>
-      <span>
-        Atenção - Se a tela estiver branca e por que o <strong>api.js </strong>
-        não foi alterado
-      </span>
-      {
-        // percorrendo o vetor de músicas, onde para cada objeto, retorna um elemento div que usa os atributos daquele objeto de música (id e titulo)
-        // ao utilizar um vetor para criar objetos com o ".map()" devemos indicar qual será a chave (key) do elemento (que deve ser única), afim de identificar o elemento
-        musicas.map((musica) => (
-          <div>
-            <h1>{musica.nome}</h1>
-          </div>
-        ))
-      }
-      {/* 
-
-                Documentação do ".map()": 
-                    - https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 
 
-                Por padrão, o React não consegue renderizar listas ou objetos, por isso precisamos iterá-los a fim de criar um elemento para ser renderizado;
-                "map()" é uma função nativa do JS, que serve para percorrer um vetor e devolver um novo vetor ao final das iterações;  
-                Utilizando o "musicas.map", estamos iterando cada música do estado "musicas";
-                A cada iteração, estamos utilizando o parâmetro "musica" (qualquer nome), que representa o próprio objeto de "musica" que está sendo iterado naquele momento;
-                Com uma função de callback ("arrow function" ou "função anônima"), podemos retornar um novo elemento JSX no lugar do objeto "musica" que estamos iterando no momento, para renderizá-lo na tela;
+      <div className="container">
+        <div className="filter">
+          <button className="btn">Adicionar</button>
+        </div>
+      </div>
 
-                Exemplos:
-                    [1, 2, 3, 4].map( function (numero) {
-                        return ( <div>Eu sou o número {numero}</div> );
-                    })
-                    
-                    - No exemplo acima, temos um vetor com 4 posições que será iterado;
-                    - Para cada item do vetor, o ".map()" retornará uma div na função anônima usada como callback;
-                    - O parâmetro "numero" representa o item do vetor que está sendo iterado no momento, e será utilizado no corpo da div para interpolar seu valor e exibir o número;
-            */}
+      <div className="container">
+        <div className="music-boxes">
+          {musicas.map((musica) => (
+            <ItemMusica
+              nome={musica.nome}
+              artista={musica.artista}
+              genero={musica.genero}
+              ano={musica.ano}
+              capa={musica.imagem}
+            />
+          ))}
+        </div>
+      </div>
     </>
   );
 }
