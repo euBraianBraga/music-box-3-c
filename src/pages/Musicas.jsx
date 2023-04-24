@@ -33,13 +33,16 @@ function Musicas() {
       <div className="container">
         <div className="music-boxes">
           {musicas.map((musica) => (
+            <React.Fragment key={musica.id}>
             <ItemMusica
+              id={musica.id}
               nome={musica.nome}
               artista={musica.artista}
               genero={musica.genero}
               ano={musica.ano}
               capa={musica.imagem}
-            />
+              />
+            </React.Fragment>
           ))}
         </div>
       </div>
