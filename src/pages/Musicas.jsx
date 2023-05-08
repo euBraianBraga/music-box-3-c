@@ -2,9 +2,23 @@ import React, { useEffect } from "react";
 import api from "../api"; // importando a instância do Axios de "api.js"
 import { useState } from "react";
 import ItemMusica from "../components/ItemMusica";
+import { useNavigate } from "react-router-dom";
 
 function Musicas() {
+  const navigate = useNavigate();
+
   const [musicas, setMusicas] = useState([]); // criando estado de vetor para uma lista de músicas
+
+  function deletarMusica(id) {
+    api
+      .delete(`/${id}`)
+      .then(() => {
+        setMusicas(musicas.filter((musica) => musica.id !== id));
+      })
+      .catch(() => {
+        alert("deu erro");
+      });
+  }
 
   useEffect(() => {
     api
@@ -22,11 +36,11 @@ function Musicas() {
 
   return (
     <>
-
-
       <div className="container">
         <div className="filter">
-          <button className="btn">Adicionar</button>
+          <button className="btn" onClick={() => navigate("/adicionar")}>
+            Adicionar
+          </button>
         </div>
       </div>
 
@@ -34,13 +48,14 @@ function Musicas() {
         <div className="music-boxes">
           {musicas.map((musica) => (
             <React.Fragment key={musica.id}>
-            <ItemMusica
-              id={musica.id}
-              nome={musica.nome}
-              artista={musica.artista}
-              genero={musica.genero}
-              ano={musica.ano}
-              capa={musica.imagem}
+              <ItemMusica
+                id={musica.id}
+                nome={musica.nome}
+                artista={musica.artista}
+                genero={musica.genero}
+                ano={musica.ano}
+                capa={musica.imagem}
+                funcaoDeletar={deletarMusica}
               />
             </React.Fragment>
           ))}

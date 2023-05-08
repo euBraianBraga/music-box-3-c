@@ -1,7 +1,32 @@
 import React from "react";
-import imgLateral from "../html-css-template/imagens/half-circles-pink-blue.png"
+import imgLateral from "../html-css-template/imagens/half-circles-pink-blue.png";
+import api from "../api";
+import { useNavigate } from "react-router-dom";
 
 function Adicionar() {
+  const navigate = useNavigate();
+
+  function cadastrar(e) {
+    e.preventDefault();
+
+    const novaMusica = {
+      nome: e.target.nome.value,
+      artista: e.target.artista.value,
+      genero: e.target.genero.value,
+      ano: e.target.ano.value,
+      imagem: e.target.imagem.value
+    };
+
+    api
+      .post("/", novaMusica)
+      .then(() => {
+        navigate("/musicas");
+      })
+      .catch((erro) => {
+        alert("DEU ERRO TEM MUITA GENTE TESTANDO", erro);
+      });
+  }
+
   return (
     <>
       <div className="container">
@@ -11,34 +36,36 @@ function Adicionar() {
 
             <br />
 
-            <form>
+            <form onSubmit={cadastrar}>
               <label>
                 Música: <br />
-                <input type="text" />
+                <input name="nome" type="text" />
               </label>
               <br />
               <label>
                 Artista: <br />
-                <input type="text" />
+                <input name="artista" type="text" />
               </label>
               <br />
               <label>
                 Genêro: <br />
-                <input type="text" />
+                <input name="genero" type="text" />
               </label>
               <br />
               <label>
                 Ano de Lançamento: <br />
-                <input type="text" />
+                <input name="ano" type="text" />
               </label>
               <br />
               <label>
                 {" "}
                 Imagem (url): <br />
-                <input type="text" />
+                <input name="imagem" type="text" />
               </label>
               <br />
-              <button className="btn">Enviar</button>
+              <button className="btn" type="submit">
+                Enviar
+              </button>
             </form>
           </div>
 

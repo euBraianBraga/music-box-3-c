@@ -39,11 +39,14 @@ function ItemMusica(props) {
     <>
       <div className="card-music" style={estiloCard}>
         <div className="icons">
-          <img src={editIcon} 
+          <img
+            src={editIcon}
             alt="Icone de um lapis"
             onClick={() => setEditing(true)}
           />
-          <img src={deleteIcon} alt="" />
+          <img src={deleteIcon} alt=""
+            onClick={() => props.funcaoDeletar(props.id)}
+          />
         </div>
         <div className="info-music">
           <p>
@@ -51,16 +54,20 @@ function ItemMusica(props) {
             <input
               type="text"
               disabled={!editing}
+              className={
+                editing ? "input-music-enable" : "input-music-disabled"
+              }
               defaultValue={nome}
-              className={editing ? "input-music-enable"
-              : "input-music-disabled"}
               onChange={(e) => setNome(e.target.value)}
             />
           </p>
           <p>
             <strong className="card-title">artista: </strong>
             <input
-              className="input-music-enable"
+              disabled={!editing}
+              className={
+                editing ? "input-music-enable" : "input-music-disabled"
+              }
               type="text"
               defaultValue={artista}
               onChange={(e) => setArtista(e.target.value)}
@@ -69,7 +76,10 @@ function ItemMusica(props) {
           <p>
             <strong className="card-title">categoria: </strong>
             <input
-              className="input-music-enable"
+              disabled={!editing}
+              className={
+                editing ? "input-music-enable" : "input-music-disabled"
+              }
               type="text"
               defaultValue={genero}
               onChange={(e) => setGenero(e.target.value)}
@@ -78,7 +88,10 @@ function ItemMusica(props) {
           <p>
             <strong className="card-title">ano: </strong>
             <input
-              className="input-music-enable"
+              disabled={!editing}
+              className={
+                editing ? "input-music-enable" : "input-music-disabled"
+              }
               type="text"
               defaultValue={ano}
               onChange={(e) => setAno(e.target.value)}
